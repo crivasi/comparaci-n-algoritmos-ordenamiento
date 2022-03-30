@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Algoritmos Ordenamiento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div>
+    <h2>Generación del vector</h2>
+    <p><small>(Números de 4 cifras como mínimo)</small></p>
+    <form>
+      <label>Cantidad de elementos:</label>
+      <input 
+        type="radio" 
+        name="cantElementos"
+        value="100"
+        checked
+      />100
+      <input 
+        type="radio" 
+        name="cantElementos"
+        value="1000"
+      />1000
+      <input 
+        type="radio" 
+        name="cantElementos"
+        value="10000"
+      />10000
+      <input 
+        type="radio" 
+        name="cantElementos"
+        value="100000"
+      />100000
+      <br>
+      <input 
+        id="generar-vector"
+        type="button" 
+        value="Generar"
+      />
+    </form>
+    <div id="mensaje-vector-generado" class="oculto">
+      <p class="mensaje mensaje--verde">Vector generado</p>
+      <input 
+        id="copiar-vector"
+        type="button" 
+        value="Copia el vector"
+      />
+      <div id="muestra-vector-generado"></div>
+      <span id="mensaje-vector-copiado" class="oculto">Copiado!</span>
+    </div>
+  </div>
+  <div>
+    <h2>Métodos de ordenamiento</h2>
+    <input 
+      id="ordenar-vector"
+      type="button" 
+      value="Ordenar"
+      disabled
+    />
+    <table class="metodos">
+      <thead>
+        <tr>
+          <th>Método</th>
+          <th>Intercambios</th>
+          <th>Comparaciones</th>
+          <th>Tiempo ejecución</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Quicksort</td>
+          <td id="quicksort-intercambios"></td>
+          <td id="quicksort-comparaciones"></td>
+          <td id="quicksort-tiempo"></td>
+        </tr>
+        <tr>
+          <td>Heapsort</td>
+          <td id="heap-intercambios"></td>
+          <td id="heap-comparaciones"></td>
+          <td id="heap-tiempo"></td>
+        </tr>
+        <tr id="heapsort-mejorado-fila">
+          <td>Heapsort mejorado</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
