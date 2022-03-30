@@ -175,7 +175,7 @@ function heapRoot(input, i) {
   var right = 2 * i + 2;
   var max = i;
 
-  comparacionesHeap += 3;
+  comparacionesHeap += 5;
 
   if (left < array_length && input[left] > input[max]) {
     max = left;
