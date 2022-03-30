@@ -26,6 +26,7 @@ radiosSizeVector.forEach(function (radioSize) {
   radioSize.addEventListener('change', function() {
     btnOrdenarVector.setAttribute('disabled', '');
     resetValues();
+    
     if (mensajeVectorGenerado.classList.contains('visible')) {
       mensajeVectorGenerado.classList.remove('visible');
       mensajeVectorGenerado.classList.add('oculto');
@@ -51,7 +52,10 @@ function desaparecerMensajeCopiado() {
 }
 
 function generarVectorAleatorio() {
+  resetValues();
+  agregarDatosTabla();
   vectorAleatorio.length = 0;
+
   const size = parseInt(document.querySelector('[name="cantElementos"]:checked').value);
   const cifras = [9999, 99999, 999999];
 
@@ -70,31 +74,34 @@ function generarVectorAleatorio() {
 }
 
 function copiarVectorGenerado() {
-  navigator.clipboard.writeText(JSON.stringify(vectorAleatorio));
+  navigator.clipboard.writeText(JSON.stringify(typeof vectorHeapsortMejorado != 'undefined' ? vectorHeapsortMejorado : vectorAleatorio));
   mensajeVectorCopiado.classList.toggle('mensaje-copiado--visible');
   desaparecerMensajeCopiado();
 }
 
 function ordenarVector() {
   resetValues();
+  agregarDatosTabla();
+  
   btnOrdenarVector.setAttribute('disabled', '');
+  document.body.classList.add('ordenando');
 
   const vectorBurbuja = [...vectorAleatorio];
   const vectorHeapsort = [...vectorAleatorio];
   const vectorHeapsort2 = [...vectorAleatorio];
   const vectorHeapsortMejorado = [...vectorAleatorio];
 
-  bubbleSort(vectorBurbuja);
-  heapSort(vectorHeapsort);
+  setTimeout(() => {
+    bubbleSort(vectorBurbuja);
+    heapSort(vectorHeapsort);
+    heapsort2(vectorHeapsort2);
+    heapsortEnhace(vectorHeapsortMejorado);
 
-  heapsort2(vectorHeapsort2);
-  heapsortEnhace(vectorHeapsortMejorado);
+    agregarDatosTabla();
 
-  agregarDatosTabla();
-
-  btnOrdenarVector.removeAttribute('disabled');
-
-  divMuestraVector.textContent = `${JSON.stringify(vectorHeapsortMejorado).substring(0,500)}...`;
+    btnOrdenarVector.removeAttribute('disabled');
+    divMuestraVector.textContent = `${JSON.stringify(vectorHeapsortMejorado).substring(0,500)}...`;
+  });
 }
 
 function agregarDatosTabla() {
@@ -106,6 +113,8 @@ function agregarDatosTabla() {
   colComparacionesHeap2.textContent = comparacionesHeap2;
   colIntercambiosHeapMejorado.textContent = intercambiosHeapMejorado;
   colComparacionesHeapMejorado.textContent = comparacionesHeapMejorado;
+
+  document.body.classList.remove('ordenando');
 }
 
 ///////////////////// HEAPSORT ///////////////

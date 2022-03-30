@@ -8,94 +8,97 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div>
-    <h2>Generación del vector</h2>
-    <p><small>(Números de 4 cifras como mínimo)</small></p>
-    <form>
-      <label>Cantidad de elementos:</label>
-      <input 
-        type="radio" 
-        name="cantElementos"
-        value="100"
-        checked
-      />100
-      <input 
-        type="radio" 
-        name="cantElementos"
-        value="1000"
-      />1000
-      <input 
-        type="radio" 
-        name="cantElementos"
-        value="10000"
-      />10000
-      <input 
-        type="radio" 
-        name="cantElementos"
-        value="100000"
-      />100000
-      <br>
-      <input 
-        id="generar-vector"
-        type="button" 
-        value="Generar"
-      />
-    </form>
-    <div id="mensaje-vector-generado" class="oculto">
-      <p class="mensaje mensaje--verde">Vector generado</p>
-      <input 
-        id="copiar-vector"
-        type="button" 
-        value="Copiar el vector"
-      />
-      <div id="muestra-vector-generado"></div>
-      <span id="mensaje-vector-copiado" class="oculto">Copiado!</span>
+  <h1 class="title">Taller: Ordenamiento</h1>
+  <div class="container">
+    <div>
+      <h2>Generación del vector</h2>
+      <p><small>(Números de 4 cifras como mínimo)</small></p>
+      <form>
+        <label>Cantidad de elementos:</label>
+        <input 
+          type="radio" 
+          name="cantElementos"
+          value="100"
+          checked
+        />100
+        <input 
+          type="radio" 
+          name="cantElementos"
+          value="1000"
+        />1000
+        <input 
+          type="radio" 
+          name="cantElementos"
+          value="10000"
+        />10000
+        <input 
+          type="radio" 
+          name="cantElementos"
+          value="100000"
+        />100000
+        <br>
+        <input 
+          id="generar-vector"
+          type="button" 
+          value="Generar"
+        />
+      </form>
+      <div id="mensaje-vector-generado" class="oculto">
+        <p class="mensaje mensaje--verde">Vector generado</p>
+        <input 
+          id="copiar-vector"
+          type="button" 
+          value="Copiar el vector"
+        />
+        <div id="muestra-vector-generado"></div>
+        <span id="mensaje-vector-copiado" class="oculto">Copiado!</span>
+      </div>
     </div>
-  </div>
-  <div>
-    <h2>Métodos de ordenamiento</h2>
-    <input 
-      id="ordenar-vector"
-      type="button" 
-      value="Ordenar el vector"
-      disabled
-    />
-    <table class="metodos">
-      <thead>
-        <tr>
-          <th>Método</th>
-          <th>Intercambios</th>
-          <th>Comparaciones</th>
-          <th>Tiempo ejecución</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Burbuja</td>
-          <td id="burbuja-intercambios"></td>
-          <td id="burbuja-comparaciones"></td>
-          <td id="burbuja-tiempo"></td>
-        </tr>
-        <tr>
-          <td>Heapsort</td>
-          <td id="heap-intercambios"></td>
-          <td id="heap-comparaciones"></td>
-          <td id="heap-tiempo"></td>
-        </tr>
-        <tr>
-          <td>Heapsort nuestro</td>
-          <td id="heap-intercambios2"></td>
-          <td id="heap-comparaciones2"></td>
-          <td id="heap-tiempo"></td>
-        </tr>
-        <tr>
-          <td>Heapsort mejorado</td>
-          <td id="heap-mejorado-intercambios"></td>
-          <td id="heap-mejorado-comparaciones"></td>
-          <td id="heap-mejorado-tiempo"></td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <h2>Métodos de ordenamiento</h2>
+      <input 
+        id="ordenar-vector"
+        type="button" 
+        value="Ordenar el vector"
+        disabled
+      />
+      <table class="metodos">
+        <thead>
+          <tr>
+            <th>Método</th>
+            <th>Intercambios</th>
+            <th>Comparaciones</th>
+            <th>Tiempo ejecución</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Burbuja</td>
+            <td id="burbuja-intercambios"></td>
+            <td id="burbuja-comparaciones"></td>
+            <td id="burbuja-tiempo"></td>
+          </tr>
+          <tr>
+            <td>Heapsort</td>
+            <td id="heap-intercambios"></td>
+            <td id="heap-comparaciones"></td>
+            <td id="heap-tiempo"></td>
+          </tr>
+          <tr>
+            <td>Heapsort nuestro</td>
+            <td id="heap-intercambios2"></td>
+            <td id="heap-comparaciones2"></td>
+            <td id="heap-tiempo"></td>
+          </tr>
+          <tr>
+            <td>Heapsort mejorado</td>
+            <td id="heap-mejorado-intercambios"></td>
+            <td id="heap-mejorado-comparaciones"></td>
+            <td id="heap-mejorado-tiempo"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <script src="index.js"></script>
 </body>
