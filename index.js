@@ -9,12 +9,13 @@ const divMuestraVector = document.getElementById('muestra-vector-generado');
 
 const colIntercambiosBurbuja = document.querySelector('#burbuja-intercambios');
 const colComparacionesBurbuja = document.querySelector('#burbuja-comparaciones');
+const colTiempoBurbuja = document.querySelector('#burbuja-tiempo');
 const colIntercambiosHeap = document.querySelector('#heap-intercambios');
 const colComparacionesHeap = document.querySelector('#heap-comparaciones');
-const colIntercambiosHeap2 = document.querySelector('#heap-intercambios2');
-const colComparacionesHeap2 = document.querySelector('#heap-comparaciones2');
+const colTiempoHeapsort = document.querySelector('#heap-tiempo');
 const colIntercambiosHeapMejorado = document.querySelector('#heap-mejorado-intercambios');
 const colComparacionesHeapMejorado = document.querySelector('#heap-mejorado-comparaciones');
+const colTiempoHeapMejorado = document.querySelector('#heap-mejorado-tiempo');
 
 const vectorAleatorio = [];
 
@@ -26,7 +27,7 @@ radiosSizeVector.forEach(function (radioSize) {
   radioSize.addEventListener('change', function() {
     btnOrdenarVector.setAttribute('disabled', '');
     resetValues();
-    
+
     if (mensajeVectorGenerado.classList.contains('visible')) {
       mensajeVectorGenerado.classList.remove('visible');
       mensajeVectorGenerado.classList.add('oculto');
@@ -37,12 +38,13 @@ radiosSizeVector.forEach(function (radioSize) {
 function resetValues() {
   intercambiosBurbuja = 0;
   comparacionesBurbuja = 0;
+  tiempoBurbuja = 0;
   intercambiosHeap = 0;
   comparacionesHeap = 0;
-  intercambiosHeap2 = 0;
-  comparacionesHeap2 = 0;
+  tiempoHeapsort = 0;
   intercambiosHeapMejorado = 0;
   comparacionesHeapMejorado = 0;
+  tiempoHeapsortMejorado = 0;
 }
 
 function desaparecerMensajeCopiado() {
@@ -60,7 +62,7 @@ function generarVectorAleatorio() {
   const cifras = [9999, 99999, 999999];
 
   for (let i = 0; i < size; i++) {
-    const numeroCifras = Math.floor(Math.random() * cifras.length);
+    let numeroCifras = Math.floor(Math.random() * cifras.length);
     vectorAleatorio.push(Math.round((Math.random() * cifras[numeroCifras])) + 1000);
   }
 
@@ -88,13 +90,12 @@ function ordenarVector() {
 
   const vectorBurbuja = [...vectorAleatorio];
   const vectorHeapsort = [...vectorAleatorio];
-  const vectorHeapsort2 = [...vectorAleatorio];
   const vectorHeapsortMejorado = [...vectorAleatorio];
 
   setTimeout(() => {
     bubbleSort(vectorBurbuja);
-    heapSort(vectorHeapsort);
-    heapsort2(vectorHeapsort2);
+    heapsort(vectorHeapsort);
+    // heapsort2(vectorHeapsort2);
     heapsortEnhace(vectorHeapsortMejorado);
 
     agregarDatosTabla();
@@ -107,22 +108,26 @@ function ordenarVector() {
 function agregarDatosTabla() {
   colIntercambiosBurbuja.textContent = intercambiosBurbuja;
   colComparacionesBurbuja.textContent = comparacionesBurbuja;
+  colTiempoBurbuja.textContent = tiempoBurbuja;
   colIntercambiosHeap.textContent = intercambiosHeap;
   colComparacionesHeap.textContent = comparacionesHeap;
-  colIntercambiosHeap2.textContent = intercambiosHeap2;
-  colComparacionesHeap2.textContent = comparacionesHeap2;
+  colTiempoHeapsort.textContent = tiempoHeapsort;
+  /* colIntercambiosHeap2.textContent = intercambiosHeap2;
+  colComparacionesHeap2.textContent = comparacionesHeap2; */
   colIntercambiosHeapMejorado.textContent = intercambiosHeapMejorado;
   colComparacionesHeapMejorado.textContent = comparacionesHeapMejorado;
+  colTiempoHeapMejorado.textContent = tiempoHeapsortMejorado;
 
   document.body.classList.remove('ordenando');
 }
 
 ///////////////////// HEAPSORT ///////////////
-let intercambiosHeap2 = 0;
-let comparacionesHeap2 = 0;
+let intercambiosHeap = 0;
+let comparacionesHeap = 0;
+let tiempoHeapsort = 0;
 
 const getBigger = (data, bigger, toCompare) => {
-  comparacionesHeap2++;
+  comparacionesHeap++;
   return data[bigger] >= data[toCompare] ? bigger : toCompare;
 }
  
@@ -131,7 +136,7 @@ const maxHeapify = (data, rootIndex, length) => {
   const rightIndex = rootIndex * 2 + 2;
   let bigger = rootIndex;
  
-  comparacionesHeap2 += 3;
+  comparacionesHeap += 3;
 
   if (leftIndex <= length) {
     bigger = getBigger(data, bigger, leftIndex);
@@ -142,89 +147,41 @@ const maxHeapify = (data, rootIndex, length) => {
   }
   
   if (bigger !== rootIndex) {
-    intercambiosHeap2++;
+    intercambiosHeap++;
     [data[rootIndex], data[bigger]] = [data[bigger], data[rootIndex]];
     maxHeapify(data, bigger, length);
   }
 };
  
-const heapsort2 = data => {
+const heapsort = data => {
+  const tiempoInicial = performance.now();
   const half = Math.floor(data.length / 2);
+
   for (let rootIndex = half; rootIndex >= 0; rootIndex--) {
-    comparacionesHeap2++;
+    comparacionesHeap++;
     maxHeapify(data, rootIndex, data.length - 1);
   }
   
   for (let length = data.length - 1; length >= 0; length--) {
-    intercambiosHeap2++;
+    intercambiosHeap++;
     [data[0], data[length]] = [data[length], data[0]];
     maxHeapify(data, 0, length - 1);
   }
+
+  tiempoHeapsort = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
   
   return data;
 };
 
-//////////
-
-var array_length;
-
-// A utility function to swap two elements
-function swapHeap(input, index_A, index_B) {
-  intercambiosHeap++;
-
-  var temp = input[index_A];
-
-  input[index_A] = input[index_B];
-  input[index_B] = temp;
-}
-
-/* to create MAX  array */  
-function heapRoot(input, i) {
-  var left = 2 * i + 1;
-  var right = 2 * i + 2;
-  var max = i;
-
-  comparacionesHeap += 5;
-
-  if (left < array_length && input[left] > input[max]) {
-    max = left;
-  }
-
-  if (right < array_length && input[right] > input[max]) {
-    max = right;
-  }
-
-  if (max != i) {
-    swapHeap(input, i, max);
-    heapRoot(input, max);
-  }
-}
-
-function heapSort(input) {
-  array_length = input.length;
-
-  for (var i = Math.floor(array_length / 2); i >= 0; i -= 1) {
-    comparacionesHeap++;
-    heapRoot(input, i);
-  }
-
-  for (i = input.length - 1; i > 0; i--) {
-    comparacionesHeap++;
-
-    swapHeap(input, 0, i);
-    array_length--;
-    heapRoot(input, 0);
-  }
-}
-
-/////////////////////////////
-
 ///////// BURBUJA ////////////
 let intercambiosBurbuja = 0;
 let comparacionesBurbuja = 0;
+let tiempoBurbuja = 0;
 
 function bubbleSort(arr) {
-  const length = arr.length;  
+  const tiempoInicial = performance.now();
+  const length = arr.length;
+
   for (let i = 0; i < length; i++) {
     comparacionesBurbuja++;
 
@@ -240,11 +197,15 @@ function bubbleSort(arr) {
       }
     }        
   }
+
+  tiempoBurbuja = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
+  
 }
 
 /////////// HEAPSORT MEJORADO //////////////
 let intercambiosHeapMejorado = 0;
 let comparacionesHeapMejorado = 0;
+let tiempoHeapsortMejorado = 0;
 
 const getBiggerEnhace = (data, bigger, toCompare) => {
   comparacionesHeapMejorado++;
@@ -284,7 +245,9 @@ const maxHeapifyEnhace = (data, rootIndex, length) => {
 };
  
 const heapsortEnhace = data => {
+  const tiempoInicial = performance.now();
   const half = Math.floor(data.length / 4);
+
   for (let rootIndex = half; rootIndex >= 0; rootIndex--) {
     comparacionesHeapMejorado++;
     maxHeapifyEnhace(data, rootIndex, data.length - 1);
@@ -296,6 +259,8 @@ const heapsortEnhace = data => {
     [data[0], data[length]] = [data[length], data[0]];
     maxHeapifyEnhace(data, 0, length - 1);
   }
+
+  tiempoHeapsortMejorado = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
   
   return data;
 };

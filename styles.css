@@ -37,6 +37,14 @@ body.ordenando::after {
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 50px;
+  
+}
+
+@media all and (max-width: 480px) {
+  .container div {
+    width: 100%;
+    flex: 1;
+  }
 }
 
 .title {
@@ -101,7 +109,7 @@ input[type=button]:disabled {
 }
 
 #muestra-vector-generado {
-  width: 30em;
+  max-width: 30em;
   background: #5c617c;
   border: 1px solid black;
   padding: 15px 10px;
@@ -133,6 +141,9 @@ table.metodos {
   border-collapse: collapse;
   font-size: 14px;
   margin-top: 40px;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
 }
 
 table.metodos td, table.metodos th {
