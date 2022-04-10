@@ -93,9 +93,8 @@ function ordenarVector() {
   const vectorHeapsortMejorado = [...vectorAleatorio];
 
   setTimeout(() => {
-    bubbleSort(vectorBurbuja);
+    bubblesort(vectorBurbuja);
     heapsort(vectorHeapsort);
-    // heapsort2(vectorHeapsort2);
     heapsortEnhace(vectorHeapsortMejorado);
 
     agregarDatosTabla();
@@ -112,8 +111,6 @@ function agregarDatosTabla() {
   colIntercambiosHeap.textContent = intercambiosHeap;
   colComparacionesHeap.textContent = comparacionesHeap;
   colTiempoHeapsort.textContent = tiempoHeapsort;
-  /* colIntercambiosHeap2.textContent = intercambiosHeap2;
-  colComparacionesHeap2.textContent = comparacionesHeap2; */
   colIntercambiosHeapMejorado.textContent = intercambiosHeapMejorado;
   colComparacionesHeapMejorado.textContent = comparacionesHeapMejorado;
   colTiempoHeapMejorado.textContent = tiempoHeapsortMejorado;
@@ -168,7 +165,7 @@ const heapsort = data => {
     maxHeapify(data, 0, length - 1);
   }
 
-  tiempoHeapsort = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
+  tiempoHeapsort = `${(performance.now() - tiempoInicial)} ms`;
   
   return data;
 };
@@ -178,7 +175,7 @@ let intercambiosBurbuja = 0;
 let comparacionesBurbuja = 0;
 let tiempoBurbuja = 0;
 
-function bubbleSort(arr) {
+function bubblesort(arr) {
   const tiempoInicial = performance.now();
   const length = arr.length;
 
@@ -198,7 +195,7 @@ function bubbleSort(arr) {
     }        
   }
 
-  tiempoBurbuja = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
+  tiempoBurbuja = `${(performance.now() - tiempoInicial)} ms`;
   
 }
 
@@ -213,13 +210,12 @@ const getBiggerEnhace = (data, bigger, toCompare) => {
 }
  
 const maxHeapifyEnhace = (data, rootIndex, length) => {
-  const leftOneIndex = rootIndex * 4 + 1;
-  const leftTwoIndex = rootIndex * 4 + 2;
-  const rightOneIndex = rootIndex * 4 + 3;
-  const rightTwoIndex = rootIndex * 4 + 4;
+  const leftOneIndex = rootIndex * 3 + 1;
+  const leftTwoIndex = rootIndex * 3 + 2;
+  const rightOneIndex = rootIndex * 3 + 3;
   let bigger = rootIndex;
   
-  comparacionesHeapMejorado += 5;
+  comparacionesHeapMejorado += 4;
 
   if (leftOneIndex <= length) {
     bigger = getBiggerEnhace(data, bigger, leftOneIndex);
@@ -232,10 +228,6 @@ const maxHeapifyEnhace = (data, rootIndex, length) => {
   if (rightOneIndex <= length) {
     bigger = getBiggerEnhace(data, bigger, rightOneIndex);
   }
-
-  if (rightTwoIndex <= length) {
-    bigger = getBiggerEnhace(data, bigger, rightTwoIndex);
-  }
   
   if (bigger !== rootIndex) {
     intercambiosHeapMejorado++;
@@ -246,7 +238,7 @@ const maxHeapifyEnhace = (data, rootIndex, length) => {
  
 const heapsortEnhace = data => {
   const tiempoInicial = performance.now();
-  const half = Math.floor(data.length / 4);
+  const half = Math.floor(data.length / 3);
 
   for (let rootIndex = half; rootIndex >= 0; rootIndex--) {
     comparacionesHeapMejorado++;
@@ -260,7 +252,7 @@ const heapsortEnhace = data => {
     maxHeapifyEnhace(data, 0, length - 1);
   }
 
-  tiempoHeapsortMejorado = `${(performance.now() - tiempoInicial).toFixed(5)} ms`;
+  tiempoHeapsortMejorado = `${(performance.now() - tiempoInicial)} ms`;
   
   return data;
 };
